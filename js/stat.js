@@ -20,9 +20,6 @@ const renderCloud = function (ctx, x, y, color) {
 };
 
 const renderHeading = function (ctx, array) {
-  ctx.fillStyle = `#000`;
-  ctx.font = `16px PT Mono`;
-  ctx.textBaseline = `hanging`;
   for (let i = 0; i < array.length; i++) {
     ctx.fillText(array[i], CLOUD_X + CLOUD_PADDING, CLOUD_Y + CLOUD_PADDING + LINE_HEIGTH * i);
   }
@@ -44,6 +41,9 @@ const getMaxTime = function (array) {
 window.renderStatistics = function (ctx, names, times) {
   renderCloud(ctx, CLOUD_X + SHADOW_GAP, CLOUD_Y + SHADOW_GAP, `rgba(0, 0, 0, 0.7)`);
   renderCloud(ctx, CLOUD_X, CLOUD_Y, `#fff`);
+  ctx.fillStyle = `#000`;
+  ctx.font = `16px PT Mono`;
+  ctx.textBaseline = `hanging`;
   renderHeading(ctx, HEADING_TEXT);
   let maxTime = getMaxTime(times);
   for (let i = 0; i < times.length; i++) {
