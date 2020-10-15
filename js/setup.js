@@ -2,8 +2,6 @@
 
 const WIZARDS_QUANTITY = 4;
 
-document.querySelector(`.setup`).classList.remove(`hidden`);
-
 const firstNames = [
   `Иван`, `Хуан Себастьян`, `Мария`, `Кристоф`, `Виктор`, `Юлия`, `Люпита`, `Вашингтон`
 ];
