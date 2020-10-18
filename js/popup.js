@@ -4,11 +4,9 @@
   const {
     setup, wizardCoat, wizardEyes, setupFireballWrap, setupHandle, onWizardCoatClick, onWizardEyesClick, onFireballClick
   } = window.setup;
-
   const {
     escEvent, enterEvent
   } = window.util;
-
   const {
     getMove, getDefaultOffsets, setDefaultOffsets
   } = window.move;

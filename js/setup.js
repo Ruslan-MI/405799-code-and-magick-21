@@ -2,50 +2,13 @@
 
 (() => {
   const {
-    getRandomIndex, getRandomPaint
+    getRandomPaint
   } = window.util;
+  const {
+    wizardsProperties, getWizardsArray
+  } = window.data;
 
-  const WIZARDS_QUANTITY = 4;
-
-  const wizardsProperties = {
-    firstNames: [
-      `Иван`, `Хуан Себастьян`, `Мария`, `Кристоф`, `Виктор`, `Юлия`, `Люпита`, `Вашингтон`
-    ],
-    secondNames: [
-      `да Марья`, `Верон`, `Мирабелла`, `Вальц`, `Онопко`, `Топольницкая`, `Нионго`, `Ирвинг`
-    ],
-    coatColor: [
-      `rgb(101, 137, 164)`,
-      `rgb(241, 43, 107)`,
-      `rgb(146, 100, 161)`,
-      `rgb(56, 159, 117)`,
-      `rgb(215, 210, 55)`,
-      `rgb(0, 0, 0)`
-    ],
-    eyesColor: [
-      `black`, `red`, `blue`, `yellow`, `green`
-    ],
-    fireballColor: [
-      `#ee4830`, `#30a8ee`, `#5ce6c0`, `#e848d5`, `#e6e848`
-    ]
-  };
-
-  const getWizardsArray = (data) => {
-    const {
-      firstNames, secondNames, coatColor, eyesColor
-    } = data;
-    let wizardsArray = [];
-    for (let i = 0; i < WIZARDS_QUANTITY; i++) {
-      let wizard = {};
-      wizard.name = firstNames[getRandomIndex(firstNames)] + ` ` + secondNames[getRandomIndex(secondNames)];
-      wizard.coatColor = coatColor[getRandomIndex(coatColor)];
-      wizard.eyesColor = eyesColor[getRandomIndex(eyesColor)];
-      wizardsArray.push(wizard);
-    }
-    return wizardsArray;
-  };
-
-  const wizards = getWizardsArray(wizardsProperties);
+  const wizards = getWizardsArray();
 
   const setupSimilarItem = document.querySelector(`#similar-wizard-template`).content.querySelector(`.setup-similar-item`);
 
@@ -80,20 +43,17 @@
 
   const setupHandle = setup.querySelector(`.upload`);
 
+  const onWizardCoatClick = () => {
+    getRandomPaint(wizardsProperties.coatColor, wizardCoat, wizardCoatInput);
+  };
+  const onWizardEyesClick = () => {
+    getRandomPaint(wizardsProperties.eyesColor, wizardEyes, wizardEyesInput);
+  };
+  const onFireballClick = () => {
+    getRandomPaint(wizardsProperties.fireballColor, setupFireballWrap, setupFireballInput);
+  };
+
   window.setup = {
-    setup,
-    wizardCoat,
-    wizardEyes,
-    setupFireballWrap,
-    setupHandle,
-    onWizardCoatClick: () => {
-      getRandomPaint(wizardsProperties.coatColor, wizardCoat, wizardCoatInput);
-    },
-    onWizardEyesClick: () => {
-      getRandomPaint(wizardsProperties.eyesColor, wizardEyes, wizardEyesInput);
-    },
-    onFireballClick: () => {
-      getRandomPaint(wizardsProperties.fireballColor, setupFireballWrap, setupFireballInput);
-    }
+    setup, wizardCoat, wizardEyes, setupFireballWrap, setupHandle, onWizardCoatClick, onWizardEyesClick, onFireballClick
   };
 })();
