@@ -17,7 +17,7 @@
     }
   };
   const getRandomPaint = (data, paintableTag, destinationInput) => {
-    const nextColor = data[window.util.getRandomIndex(data)];
+    const nextColor = data[getRandomIndex(data)];
     if (paintableTag.tagName.toLowerCase() === `div`) {
       paintableTag.style.backgroundColor = nextColor;
     } else {

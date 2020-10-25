@@ -1,19 +1,11 @@
 "use strict";
 
 (() => {
-  const WIZARDS_QUANTITY = 4;
-
   const {
     getRandomIndex
   } = window.util;
 
   const wizardsProperties = {
-    firstNames: [
-      `Иван`, `Хуан Себастьян`, `Мария`, `Кристоф`, `Виктор`, `Юлия`, `Люпита`, `Вашингтон`
-    ],
-    secondNames: [
-      `да Марья`, `Верон`, `Мирабелла`, `Вальц`, `Онопко`, `Топольницкая`, `Нионго`, `Ирвинг`
-    ],
     coatColor: [
       `rgb(101, 137, 164)`,
       `rgb(241, 43, 107)`,
@@ -30,17 +22,15 @@
     ]
   };
 
-  const getWizardsArray = () => {
-    const {
-      firstNames, secondNames, coatColor, eyesColor
-    } = wizardsProperties;
+  const getWizardsArray = (data) => {
+    const WIZARDS_QUANTITY = 4;
     let wizardsArray = [];
-    for (let i = 0; i < WIZARDS_QUANTITY; i++) {
-      let wizard = {};
-      wizard.name = firstNames[getRandomIndex(firstNames)] + ` ` + secondNames[getRandomIndex(secondNames)];
-      wizard.coatColor = coatColor[getRandomIndex(coatColor)];
-      wizard.eyesColor = eyesColor[getRandomIndex(eyesColor)];
-      wizardsArray.push(wizard);
+    while (wizardsArray.length !== WIZARDS_QUANTITY) {
+      let randomWizard = data[getRandomIndex(data)];
+      let isDuplicate = wizardsArray.includes(randomWizard);
+      if (!isDuplicate) {
+        wizardsArray.push(randomWizard);
+      }
     }
     return wizardsArray;
   };
