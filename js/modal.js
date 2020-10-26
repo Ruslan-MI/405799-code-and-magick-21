@@ -10,17 +10,18 @@
   const {
     getMove, getDefaultOffsets, setDefaultOffsets
   } = window.move;
+  const {
+    save
+  } = window.backend;
 
   const setupOpen = document.querySelector(`.setup-open`);
   const setupClose = setup.querySelector(`.setup-close`);
   const setupUserName = setup.querySelector(`.setup-user-name`);
   let isSetupUserNameFocus = false;
 
-  setup.querySelector(`.setup-similar`).classList.remove(`hidden`);
-
-  const openPopup = () => {
+  const openModal = () => {
     setup.classList.remove(`hidden`);
-    document.addEventListener(`keydown`, onPopupEscPress);
+    document.addEventListener(`keydown`, onModalEscPress);
     setupUserName.addEventListener(`focus`, onSetupUserNameFocus);
     setupUserName.addEventListener(`blur`, onSetupUserNameBlur);
     wizardCoat.addEventListener(`click`, onWizardCoatClick);
@@ -28,10 +29,10 @@
     setupFireballWrap.addEventListener(`click`, onFireballClick);
     getDefaultOffsets(setup);
   };
-  const closePopup = () => {
+  const closeModal = () => {
     if (!isSetupUserNameFocus) {
       setup.classList.add(`hidden`);
-      document.removeEventListener(`keydown`, onPopupEscPress);
+      document.removeEventListener(`keydown`, onModalEscPress);
       setupUserName.removeEventListener(`focus`, onSetupUserNameFocus);
       setupUserName.removeEventListener(`blur`, onSetupUserNameBlur);
       wizardCoat.removeEventListener(`click`, onWizardCoatClick);
@@ -41,8 +42,8 @@
     }
   };
 
-  const onPopupEscPress = (evt) => {
-    escEvent(evt, closePopup);
+  const onModalEscPress = (evt) => {
+    escEvent(evt, closeModal);
   };
   const onSetupUserNameFocus = () => {
     isSetupUserNameFocus = true;
@@ -52,17 +53,26 @@
   };
 
   setupOpen.addEventListener(`click`, () => {
-    openPopup();
+    openModal();
   });
   setupClose.addEventListener(`click`, () => {
-    closePopup();
+    closeModal();
   });
   setupOpen.addEventListener(`keydown`, (evt) => {
-    enterEvent(evt, openPopup);
+    enterEvent(evt, openModal);
   });
   setupClose.addEventListener(`keydown`, (evt) => {
-    enterEvent(evt, closePopup);
+    enterEvent(evt, closeModal);
   });
 
   getMove(setup, setupHandle);
+
+  const form = setup.querySelector(`.setup-wizard-form`);
+
+  form.addEventListener(`submit`, (evt) => {
+    save(new FormData(form), () => {
+      closeModal();
+    });
+    evt.preventDefault();
+  });
 })();
