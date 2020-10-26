@@ -69,8 +69,8 @@
 
   const form = setup.querySelector(`.setup-wizard-form`);
 
-  form.addEventListener(`submit`, function (evt) {
-    save(new FormData(form), function () {
+  form.addEventListener(`submit`, (evt) => {
+    save(new FormData(form), () => {
       closeModal();
     });
     evt.preventDefault();
