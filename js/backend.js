@@ -1,11 +1,12 @@
 "use strict";
 
 (() => {
-  const STATUS_CODE = {
-    OK: 200
-  };
-  const TIMEOUT_IN_MS = 10000;
   const xhrEvents = (method, URL, data, onLoad, onError) => {
+    const STATUS_CODE = {
+      OK: 200
+    };
+    const TIMEOUT_IN_MS = 10000;
+
     const xhr = new XMLHttpRequest();
 
     xhr.responseType = `json`;
