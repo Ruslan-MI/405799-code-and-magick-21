@@ -24,6 +24,7 @@
       paintableTag.style.fill = nextColor;
     }
     destinationInput.value = nextColor;
+    return nextColor;
   };
 
   window.util = {
