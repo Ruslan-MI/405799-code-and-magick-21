@@ -5,11 +5,14 @@
     getRandomPaint
   } = window.util;
   const {
-    wizardsProperties, getWizardsArray
+    wizardsProperties, sortingWizards
   } = window.data;
   const {
     load
   } = window.backend;
+  const {
+    debounce
+  } = window.debounce;
 
   const setupSimilarItem = document.querySelector(`#similar-wizard-template`).content.querySelector(`.setup-similar-item`);
 
@@ -24,10 +27,12 @@
   };
 
   const renderWizards = (data, destinationTag) => {
+    const WIZARDS_QUANTITY = 4;
     let fragment = document.createDocumentFragment();
-    for (let i = 0; i < data.length; i++) {
+    for (let i = 0; i < WIZARDS_QUANTITY; i++) {
       fragment.appendChild(createWizard(data[i]));
     }
+    destinationTag.innerHTML = ``;
     destinationTag.appendChild(fragment);
   };
 
@@ -42,18 +47,30 @@
 
   const setupHandle = setup.querySelector(`.upload`);
 
+  let coatColor = `rgb(101, 137, 164)`;
+  let eyesColor = `black`;
+  let wizardsArray = [];
+
+  const updateWizards = debounce(() => {
+    sortingWizards(wizardsArray, coatColor, eyesColor);
+    renderWizards(wizardsArray, setupSimilarList);
+  });
+
   const onWizardCoatClick = () => {
-    getRandomPaint(wizardsProperties.coatColor, wizardCoat, wizardCoatInput);
+    coatColor = getRandomPaint(wizardsProperties.coatColor, wizardCoat, wizardCoatInput);
+    updateWizards();
   };
   const onWizardEyesClick = () => {
-    getRandomPaint(wizardsProperties.eyesColor, wizardEyes, wizardEyesInput);
+    eyesColor = getRandomPaint(wizardsProperties.eyesColor, wizardEyes, wizardEyesInput);
+    updateWizards();
   };
   const onFireballClick = () => {
     getRandomPaint(wizardsProperties.fireballColor, setupFireballWrap, setupFireballInput);
   };
 
   const successHandler = (wizards) => {
-    const wizardsArray = getWizardsArray(wizards);
+    wizardsArray = wizards;
+    sortingWizards(wizardsArray, coatColor, eyesColor);
     renderWizards(wizardsArray, setupSimilarList);
     setup.querySelector(`.setup-similar`).classList.remove(`hidden`);
   };
