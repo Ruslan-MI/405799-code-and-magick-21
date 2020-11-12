@@ -7,6 +7,7 @@ module.exports = {
     "./js/move.js",
     "./js/backend.js",
     "./js/data.js",
+    "./js/avatar.js",
     "./js/setup.js",
     "./js/modal.js",
     "./js/stat.js",
